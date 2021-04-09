@@ -20,8 +20,8 @@ jobs:
         ruby:
           #- '2.5'
           #- '2.6'
-          #- '2.7'
-          - '3.0'
+          - '2.7'
+          #- '3.0'
 
     services:
       postgres:
@@ -45,7 +45,7 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
       - name: Setup environment
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/example_app
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/
         run: |
           bundle install
           bundle exec appraisal install
@@ -53,6 +53,6 @@ jobs:
           bundle exec rake db:setup
       - name: Run the tests
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/example_app
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/
         run: |
           bundle exec appraisal ${{ matrix.rails }} rake
