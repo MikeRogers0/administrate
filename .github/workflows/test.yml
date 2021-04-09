@@ -45,7 +45,7 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
       - name: Setup environment
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
         run: |
           bundle install
           bundle exec appraisal install
@@ -53,6 +53,6 @@ jobs:
           bundle exec rake db:setup
       - name: Run the tests
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
         run: |
           bundle exec appraisal ${{ matrix.rails }} rake
