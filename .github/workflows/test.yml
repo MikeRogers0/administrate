@@ -50,17 +50,11 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-ruby-${{ matrix.ruby }}-${{ hashFiles('**/*.gemspec') }}
+          bundler-cache: true
       - name: Setup environment
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
         run: |
-          bundle config path vendor/bundle
-          gem install bundler:2.1.4
-          bundle install --jobs 4 --retry 3
           bundle exec appraisal install
           cp .sample.env .env
           bundle exec rake db:setup
