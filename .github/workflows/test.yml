@@ -12,15 +12,15 @@ jobs:
     strategy:
       matrix:
         rails:
-          - 'rails50'
-          - 'rails51'
-          - 'rails52'
-          - 'rails60'
+          #- 'rails50'
+          #- 'rails51'
+          #- 'rails52'
+          #- 'rails60'
           - 'rails61'
         ruby:
-          - '2.5'
-          - '2.6'
-          - '2.7'
+          #- '2.5'
+          #- '2.6'
+          #- '2.7'
           - '3.0'
 
     services:
@@ -47,10 +47,6 @@ jobs:
           bundle exec appraisal ${{ matrix.rails }} bundle install
       - name: Run the tests
         env:
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
+          DATABASE_URL: postgres://postgres:postgres@postgres:5432/sample_app
         run: |
           bundle exec appraisal ${{ matrix.rails }} rake
