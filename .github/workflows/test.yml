@@ -11,17 +11,24 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        include:
-          - rails: 'rails61'
-            ruby: ['ruby-head', '3.0', '2.7', '2.6']
-          - rails: 'rails60'
-            ruby: ['ruby-head', '3.0', '2.7', '2.6']
+        rails:
+          #- 'rails50'
+          #- 'rails51'
+          - 'rails52'
+          #- 'rails60'
+          - 'rails61'
+        ruby:
+          #- '2.5'
+          #- '2.6'
+          - '2.7'
+          - '3.0'
+        exclude:
           - rails: 'rails52'
-            ruby: ['2.7', '2.6']
+            ruby: '3.0'
           - rails: 'rails51'
-            ruby: ['2.7', '2.6']
+            ruby: '3.0'
           - rails: 'rails50'
-            ruby: ['2.7', '2.6']
+            ruby: '3.0'
 
     services:
       postgres:
