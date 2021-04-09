@@ -48,7 +48,7 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/example_app
         run: |
           bundle install --jobs 4 --retry 3
-          bundle exec appraisal ${{ matrix.rails }} bundle install
+          bundle exec appraisal ${{ matrix.rails }} install
           cp .sample.env .env
           bundle exec rake db:setup
       - name: Run the tests
