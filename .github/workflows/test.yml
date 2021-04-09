@@ -34,6 +34,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
       - uses: actions/checkout@v2
@@ -47,6 +49,6 @@ jobs:
           bundle exec appraisal ${{ matrix.rails }} bundle install
       - name: Run the tests
         env:
-          DATABASE_URL: postgres://postgres:postgres@postgres:5432/sample_app
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/sample_app
         run: |
           bundle exec appraisal ${{ matrix.rails }} rake
