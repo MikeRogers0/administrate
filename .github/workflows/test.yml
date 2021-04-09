@@ -21,7 +21,7 @@ jobs:
           #- '2.5'
           #- '2.6'
           - '2.7'
-          - '3.0'
+          #- '3.0'
         exclude:
           - rails: 'rails52'
             ruby: '3.0'
@@ -50,10 +50,16 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-ruby-${{ maxtix.ruby }}-${{ hashFiles('**/*.gemspec') }}
       - name: Setup environment
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
         run: |
+          gem install bundler:2.1.4
+          bundle config path vendor/bundle
           bundle install
           bundle exec appraisal install
           cp .sample.env .env
