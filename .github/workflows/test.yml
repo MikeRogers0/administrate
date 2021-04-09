@@ -43,11 +43,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+          bundler: 2.1.4
+          bundler-cache: true
       - name: Setup environment
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/example_app
         run: |
-          bundle exec appraisal install
+          bundle exec appraisal ${{ matrix.rails }} install
           cp .sample.env .env
           bundle exec rake db:setup
       - name: Run the tests
