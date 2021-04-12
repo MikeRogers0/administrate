@@ -52,7 +52,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           # bundle-cache was causing the tests to fail. It was really odd.
-          # bundler-cache: true
+          bundler-cache: true
       - name: Setup environment
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
