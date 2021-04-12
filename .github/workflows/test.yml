@@ -62,6 +62,7 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
         run: |
           bundle config path vendor/bundle
+          gem install bundler:2.1.4
           bundle install --jobs 4 --retry 3
           bundle exec appraisal ${{ matrix.rails }} bundle install
           cp .sample.env .env
