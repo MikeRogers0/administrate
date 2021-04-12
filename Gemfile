@@ -11,6 +11,7 @@ gem "pg"
 gem "redcarpet"
 gem "sentry-raven"
 gem "unicorn"
+gem "webrick"
 
 group :development, :test do
   gem "appraisal"
@@ -22,7 +23,6 @@ group :development, :test do
   gem "i18n-tasks", "0.9.34"
   gem "pry-rails"
   gem "yard"
-  gem "webrick"
 end
 
 group :test do
