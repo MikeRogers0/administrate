@@ -57,9 +57,8 @@ jobs:
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
         run: |
-          bundle install
-          gem install webrick
-          bundle exec appraisal install
+          bundle install --jobs 4 --retry 3
+          bundle exec appraisal ${{ matrix.rails }} bundle install
           cp .sample.env .env
           bundle exec rake db:setup
       - name: Run the tests
