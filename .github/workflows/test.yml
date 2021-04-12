@@ -12,16 +12,16 @@ jobs:
     strategy:
       matrix:
         rails:
-          - 'rails50'
-          - 'rails51'
-          - 'rails52'
-          - 'rails60'
           - 'rails61'
+          #- 'rails60'
+          - 'rails52'
+          #- 'rails51'
+          #- 'rails50'
         ruby:
-          - '2.5'
-          - '2.6'
-          - '2.7'
           - '3.0'
+          - '2.7'
+          #- '2.6'
+          #- '2.5'
         exclude:
           # Ruby 3.0 does not work with <= Rails 5.2
           - rails: 'rails52'
@@ -58,6 +58,7 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
         run: |
           bundle install
+          gem install webrick
           bundle exec appraisal install
           cp .sample.env .env
           bundle exec rake db:setup
