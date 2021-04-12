@@ -12,17 +12,18 @@ jobs:
     strategy:
       matrix:
         rails:
-          #- 'rails50'
-          #- 'rails51'
+          - 'rails50'
+          - 'rails51'
           - 'rails52'
-          #- 'rails60'
+          - 'rails60'
           - 'rails61'
         ruby:
-          #- '2.5'
-          #- '2.6'
+          - '2.5'
+          - '2.6'
           - '2.7'
-          #- '3.0'
+          - '3.0'
         exclude:
+          # Ruby 3.0 does not work with <= Rails 5.2
           - rails: 'rails52'
             ruby: '3.0'
           - rails: 'rails51'
@@ -50,11 +51,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
+          # bundle-cache was causing the tests to fail. It was really odd.
+          # bundler-cache: true
       - name: Setup environment
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/administrate-prototype_test
         run: |
+          bundle install
           bundle exec appraisal install
           cp .sample.env .env
           bundle exec rake db:setup
